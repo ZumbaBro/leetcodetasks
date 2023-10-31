@@ -7,6 +7,7 @@ namespace AlgoritmTasks
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            AnyAlgoritms.FindFrequentLetter();
         }
     }
 }
