@@ -9,7 +9,7 @@ namespace AlgoritmTasks
     public static class LeetcodeTasks
     {
         #region https://leetcode.com/problems/substring-with-concatenation-of-all-words/
-        
+
         public static IList<int> FindSubstring(string s, string[] words)
         {
             if (s == null || words == null || s.Length < 1 || words.Length < 1 || words.First().Length < 1)
@@ -134,7 +134,7 @@ namespace AlgoritmTasks
             for (int i = 0; i < nums.Length; i += 2)
             {
                 int len = nums[i];
-                while(len > 0)
+                while (len > 0)
                 {
                     result.Add(nums[i + 1]);
                     len--;
@@ -142,6 +142,70 @@ namespace AlgoritmTasks
             }
             return result.ToArray();
         }
+        #endregion
+
+        #region https://leetcode.com/problems/create-target-array-in-the-given-order/
+
+        public static int[] CreateTargetArray(int[] nums, int[] index)
+        {            
+            var result = new List<int>();
+            for (int i = 0; i < nums.Length; i++)            
+                result.Insert(index[i], nums[i]);
+            
+            return result.ToArray();
+        }
+        #endregion
+
+        #region https://leetcode.com/problems/count-number-of-pairs-with-absolute-difference-k/     
+
+        public static int CountKDifference(int[] nums, int k)
+        {
+            int result = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                for (int j = nums.Length-1; j > i; j--)
+                {
+                    if (Math.Abs(nums[i] - nums[j]) == k)
+                        result++;
+                }
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region https://leetcode.com/problems/summary-ranges/
+
+        public static IList<string> SummaryRanges(int[] nums)
+        {
+            if (nums.Length < 1)
+                return new List<string>();
+            var result = new List<string>();
+            int j = 0;
+            int current = j;
+            for (int i = 1; i < nums.Length; i++)
+            {                
+                if (nums[j] + 1 == nums[i])
+                    j++;
+                else
+                {
+                    AddInList(nums,ref current,ref j,result);
+                    j++;
+                    current = j;
+                }
+            }
+            AddInList(nums, ref current, ref j, result);
+            return result;
+        }
+
+        private static void AddInList(int[] nums,ref int current,ref int j, List<string> result)
+        {
+            if (current != j)
+                result.Add($"{nums[current]}->{nums[j]}");
+            else
+                result.Add(nums[current].ToString());
+        }
+
         #endregion
     }
 }
